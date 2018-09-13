@@ -6,7 +6,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\UriTemplate;
+use GuzzleHttp\Exception\GuzzleException;
 use Pagos360\Exception\Pagos360ApiException;
+use Pagos360\Exception\Pagos360InvalidApiKeyException;
 use Pagos360\Model\BaseModel;
 use Pagos360\Response\ErrorResponse;
 
@@ -62,6 +64,7 @@ class ApiClient
      * @return array
      *
      * @throws Pagos360ApiException
+     * @throws Pagos360InvalidApiKeyException
      */
     public function doPost(
         $partialUrl,
@@ -88,6 +91,7 @@ class ApiClient
      * @return array
      *
      * @throws Pagos360ApiException
+     * @throws Pagos360InvalidApiKeyException
      */
     public function doGet($partialUrl, array $uriParams, array $query)
     {
@@ -107,6 +111,7 @@ class ApiClient
      * @return array
      *
      * @throws Pagos360ApiException
+     * @throws Pagos360InvalidApiKeyException
      */
     private function doRequest($method, $url, array $urlParams, array $options)
     {
@@ -130,6 +135,13 @@ class ApiClient
 
             throw new Pagos360ApiException($errorResponse, $e);
         } catch (BadResponseException $e) {
+            if ($e->getResponse()->getStatusCode() === 401) {
+                throw new Pagos360InvalidApiKeyException(
+                    'Invalid API KEY',
+                    $e
+                );
+            }
+
             $body = \GuzzleHttp\json_decode($e->getResponse()->getBody(), true);
             $errorResponse = new ErrorResponse($e->getResponse()->getStatusCode(), $body);
 

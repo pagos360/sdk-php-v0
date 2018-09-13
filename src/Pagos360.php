@@ -2,6 +2,7 @@
 
 namespace Pagos360;
 
+use Pagos360\Exception\Pagos360InvalidApiKeyException;
 use Pagos360\Util\ApiClient;
 use Pagos360\Model\PaymentRequest;
 use Pagos360\Exception\Pagos360ApiException;
@@ -46,6 +47,7 @@ class Pagos360
      * @return PaymentRequest
      *
      * @throws Pagos360ApiException
+     * @throws Pagos360InvalidApiKeyException
      */
     public function createPaymentRequest(PaymentRequest $paymentRequest)
     {
