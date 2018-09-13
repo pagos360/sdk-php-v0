@@ -14,6 +14,16 @@ class BaseModel
      * @internal
      * @access private
      *
+     * Form prefix
+     *
+     * @var string
+     */
+    private $blockPrefix;
+
+    /**
+     * @internal
+     * @access private
+     *
      * The model properties
      *
      * @var array
@@ -41,16 +51,42 @@ class BaseModel
     /**
      * Creates a instance of BaseModel
      *
+     * @param string $blockPrefix
      * @param string[] $readOnlyProperties The read only key names
      * @param array $properties The default properties
      */
     public function __construct(
+        $blockPrefix,
         array $readOnlyProperties = array(),
         array $properties = array()
     ) {
+        $this->blockPrefix = $blockPrefix;
         $this->readOnlyProperties = $readOnlyProperties;
         $this->properties = $properties;
         $this->updatedProperties = array();
+    }
+
+    /**
+     * @internal
+     *
+     * Convert camelCase to snake_case
+     *
+     * @param $input
+     * @return string
+     */
+    public function camelToSnake($input)
+    {
+        if (preg_match('/[A-Z]/', $input) === 0) {
+            return $input;
+        }
+
+        $pattern = '/([a-z])([A-Z])/';
+
+        $r = strtolower(preg_replace_callback($pattern, function ($a) {
+            return $a[1] . "_" . strtolower($a[2]);
+        }, $input));
+
+        return $r;
     }
 
     /**
@@ -83,7 +119,7 @@ class BaseModel
             $this->updatedProperties[] = $key;
         }
 
-        $this->properties[$key] = $value;
+        $this->properties[$this->camelToSnake($key)] = $value;
     }
 
     /**
@@ -135,9 +171,11 @@ class BaseModel
      */
     public function getPropertiesForCreate()
     {
-        return array_diff_key(
-            $this->properties,
-            array_flip($this->readOnlyProperties)
+        return array(
+            $this->blockPrefix => array_diff_key(
+                $this->properties,
+                array_flip($this->readOnlyProperties)
+            )
         );
     }
 

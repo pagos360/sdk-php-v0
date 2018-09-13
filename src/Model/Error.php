@@ -10,54 +10,45 @@ namespace Pagos360\Model;
 class Error
 {
     /**
-     * The field name
-     *
      * @var string
      */
-    private $fieldName;
+    private $error;
 
     /**
-     * The error message
-     *
      * @var string
      */
     private $message;
 
     /**
-     * The error code
-     *
      * @var string
      */
-    private $code;
+    private $errorDescription;
 
     /**
      * Creates a instance of Error
      *
-     * @param array $error A single error response map
+     * @param array $error A single errors response map
      */
     public function __construct(array $error)
     {
-        $this->message = $error['message'];
-        $this->code = $error['code'];
 
-        if (isset($error['fieldName'])) {
-            $this->fieldName = $error['fieldName'];
+//        $this->errors = $errors['errors'];
+//        $this->errorDescription = $errors['error_description'];
+
+        if (isset($error['message'])) {
+            $this->message = $error['message'];
         }
     }
 
     /**
-     * Get the field name
-     *
      * @return string
      */
-    public function getFieldName()
+    public function getError()
     {
-        return $this->fieldName;
+        return $this->error;
     }
 
     /**
-     * Get the error message
-     *
      * @return string
      */
     public function getMessage()
@@ -66,12 +57,10 @@ class Error
     }
 
     /**
-     * Get the error code
-     *
      * @return string
      */
-    public function getCode()
+    public function getErrorDescription()
     {
-        return $this->code;
+        return $this->errorDescription;
     }
 }
