@@ -17,25 +17,33 @@ class ErrorResponse implements \Countable, \ArrayAccess
      * @var int
      */
     private $statusCode;
+
     /**
      * The list of errors
      *
      * @var Error[]
      */
     private $errors;
+
     /**
      * Creates a ErrorResponse instance
      *
      * @param int $statusCode The http status code
-     * @param array $errors the errors response body
+     * @param array $fields the errors response body
      */
-    public function __construct($statusCode, array $errors)
+    public function __construct($statusCode, array $fields)
     {
-//        var_dump($errors); die;
         $this->statusCode = $statusCode;
-        $this->errors = array_map(function ($error) {
-            return new Error($error);
-        }, $errors['errors']);
+        foreach ($fields['children'] as $fieldName => $value) {
+            if (isset($value['errors'])) {
+                $this->errors = array_map(
+                    function ($error) use ($fieldName) {
+                        return new Error($fieldName, $error);
+                    },
+                    $value['errors']
+                );
+            }
+        }
     }
     /**
      * Get the http status code
@@ -46,6 +54,7 @@ class ErrorResponse implements \Countable, \ArrayAccess
     {
         return $this->statusCode;
     }
+
     /**
      * Get the list of errors
      *
@@ -55,6 +64,7 @@ class ErrorResponse implements \Countable, \ArrayAccess
     {
         return $this->errors;
     }
+
     /**
      * @internal
      *
@@ -70,6 +80,7 @@ class ErrorResponse implements \Countable, \ArrayAccess
     {
         return count($this->errors);
     }
+
     /**
      * @internal
      *
@@ -88,6 +99,7 @@ class ErrorResponse implements \Countable, \ArrayAccess
     {
         return isset($this->errors[$offset]);
     }
+
     /**
      * @internal
      *
@@ -103,6 +115,7 @@ class ErrorResponse implements \Countable, \ArrayAccess
     {
         return $this->errors[$offset];
     }
+
     /**
      * @internal
      *
@@ -121,6 +134,7 @@ class ErrorResponse implements \Countable, \ArrayAccess
     {
         $this->errors[$offset] = $value;
     }
+
     /**
      * @internal
      *

@@ -12,32 +12,31 @@ class Error
     /**
      * @var string
      */
+    private $field;
+
+    /**
+     * @var string
+     */
     private $error;
-
-    /**
-     * @var string
-     */
-    private $message;
-
-    /**
-     * @var string
-     */
-    private $errorDescription;
 
     /**
      * Creates a instance of Error
      *
-     * @param array $error A single errors response map
+     * @param string $field
+     * @param string $error
      */
-    public function __construct(array $error)
+    public function __construct($field, $error)
     {
+        $this->field = $field;
+        $this->error = $error;
+    }
 
-//        $this->errors = $errors['errors'];
-//        $this->errorDescription = $errors['error_description'];
-
-        if (isset($error['message'])) {
-            $this->message = $error['message'];
-        }
+    /**
+     * @return string
+     */
+    public function getField()
+    {
+        return $this->field;
     }
 
     /**
@@ -46,21 +45,5 @@ class Error
     public function getError()
     {
         return $this->error;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->message;
-    }
-
-    /**
-     * @return string
-     */
-    public function getErrorDescription()
-    {
-        return $this->errorDescription;
     }
 }
