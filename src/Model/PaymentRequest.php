@@ -234,4 +234,52 @@ class PaymentRequest extends BaseModel
 
         return $this;
     }
+
+    /**
+     * Get the backUrlSuccess
+     *
+     * @return string
+     */
+    public function getBackUrlSucess()
+    {
+        return $this->backUrlSuccess;
+    }
+
+    /**
+     * Set the backUrlSuccess
+     *
+     * @param string $backUrlSuccess
+     *
+     * @return PaymentRequest
+     */
+    public function setBackUrlSucess($backUrlSuccess)
+    {
+        $this->backUrlSuccess = $backUrlSuccess;
+
+        return $this;
+    }
+
+    /**
+     * Get the backUrlPending
+     *
+     * @return string
+     */
+    public function getBackUrlPending()
+    {
+        return $this->backUrlPending;
+    }
+
+    /**
+     * Set the backUrlPending
+     *
+     * @param string $backUrlPending
+     *
+     * @return PaymentRequest
+     */
+    public function setBackUrlPending($backUrlPending)
+    {
+        $this->backUrlPending = $backUrlPending;
+
+        return $this;
+    }
 }

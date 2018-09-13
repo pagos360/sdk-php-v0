@@ -9,7 +9,7 @@ use Pagos360\Response\ErrorResponse;
  *
  * @package Pagos360\Exception
  */
-class Pagos360ApiException extends Pagos360Exception
+class Pagos360BadRequestException extends Pagos360Exception
 {
     /**
      * The errors response
@@ -19,16 +19,16 @@ class Pagos360ApiException extends Pagos360Exception
     private $errorResponse;
 
     /**
-     * Creates a instance of the Pagos360ArgumentException
+     * Creates a instance of the Pagos360BadRequestException
      *
-     * @param ErrorResponse $errorResponse The errors response
-     * @param \Exception|null $previous The original exception
+     * @param ErrorResponse $errorResponse
+     * @param \Exception|null $previous
      */
     public function __construct(
         ErrorResponse $errorResponse,
         \Exception $previous
     ) {
-        parent::__construct($errorResponse->getStatusCode(), null, $previous);
+        parent::__construct('Bad Request', null, $previous);
 
         $this->errorResponse = $errorResponse;
     }

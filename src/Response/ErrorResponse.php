@@ -36,10 +36,8 @@ class ErrorResponse implements \Countable, \ArrayAccess
         $this->statusCode = $statusCode;
         foreach ($fields['children'] as $fieldName => $value) {
             if (isset($value['errors'])) {
-                $this->errors = array_map(
-                    function ($error) use ($fieldName) {
-                        return new Error($fieldName, $error);
-                    },
+                $this->errors[] = new Error(
+                    $fieldName,
                     $value['errors']
                 );
             }

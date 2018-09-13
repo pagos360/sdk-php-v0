@@ -2,10 +2,10 @@
 
 namespace Pagos360;
 
-use Pagos360\Exception\Pagos360InvalidApiKeyException;
+use Pagos360\Exception\Pagos360UnauthorizedException;
 use Pagos360\Util\ApiClient;
 use Pagos360\Model\PaymentRequest;
-use Pagos360\Exception\Pagos360ApiException;
+use Pagos360\Exception\Pagos360BadRequestException;
 use Pagos360\Exception\Pagos360ArgumentException;
 
 /**
@@ -33,7 +33,9 @@ class Pagos360
     public function __construct($apiKey, $server = 'https://qa.api.pagos360.com')
     {
         if (empty($apiKey)) {
-            throw new Pagos360ArgumentException('You need to specify your API KEY');
+            throw new Pagos360ArgumentException(
+                'You need to specify your API KEY'
+            );
         }
 
         $this->client = new ApiClient($apiKey, $server);
@@ -46,8 +48,8 @@ class Pagos360
      *
      * @return PaymentRequest
      *
-     * @throws Pagos360ApiException
-     * @throws Pagos360InvalidApiKeyException
+     * @throws Pagos360BadRequestException
+     * @throws Pagos360UnauthorizedException
      */
     public function createPaymentRequest(PaymentRequest $paymentRequest)
     {

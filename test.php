@@ -14,20 +14,22 @@ $verification
     ->setExternalReference('REF123')
     ->setFirstDueDate('01-12-2018')
     ->setFirstTotal(345.34)
-//    ->setSecondDueDate('12-12-2018')
-//    ->setSecondTotal(1992.22)
+    ->setSecondDueDate('12-12-2018')
+    ->setSecondTotal(1992.22)
     ->setPayerName('Jorge Armani')
     ->setPayerEmail('jorge.armani@gmail.com')
+    ->setBackUrlSucess('https://example.com/payment/success')
+    ->setBackUrlPending('https://example.com/payment/pending')
 ;
 
 try {
     $verification = $pagos360->createPaymentRequest($verification);
-    var_dump($verification->getProperties()['id']);
-} catch (\Pagos360\Exception\Pagos360InvalidApiKeyException $e) {
+    var_dump($verification->getProperties());
+} catch (\Pagos360\Exception\Pagos360UnauthorizedException $e) {
     echo $e->getMessage();
     die("\n");
-} catch (\Pagos360\Exception\Pagos360Exception $e) {
+} catch (\Pagos360\Exception\Pagos360BadRequestException $e) {
     echo $e->getMessage();
-//    echo $e->getTraceAsString();
+    var_dump($e->getErrorResponse());
     die("\n");
 }

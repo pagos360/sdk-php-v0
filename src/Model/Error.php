@@ -15,20 +15,20 @@ class Error
     private $field;
 
     /**
-     * @var string
+     * @var array
      */
-    private $error;
+    private $errors;
 
     /**
      * Creates a instance of Error
      *
      * @param string $field
-     * @param string $error
+     * @param array $error
      */
-    public function __construct($field, $error)
+    public function __construct($field, array $error)
     {
         $this->field = $field;
-        $this->error = $error;
+        $this->errors = $error;
     }
 
     /**
@@ -40,10 +40,10 @@ class Error
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getError()
+    public function getErrors()
     {
-        return $this->error;
+        return $this->errors;
     }
 }
