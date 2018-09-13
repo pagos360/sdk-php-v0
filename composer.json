@@ -1,0 +1,37 @@
+{
+    "name": "pagos360/sdk-php",
+    "description": "The PHP wrapper for the Pagos360.com API",
+    "type": "library",
+    "keywords": [
+        "pagos360.com",
+        "sdk",
+        "rest",
+        "payments"
+    ],
+    "homepage": "https://github.com/pagos360/sdk-php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jesús Díaz",
+            "email": "jdiaz@pagos360.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Pagos360\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pagos360\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=5.5.9",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8"
+    }
+}
