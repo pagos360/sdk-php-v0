@@ -40,13 +40,12 @@ class ApiClient
      */
     public function __construct($apiKey, $server, $clientOptions = array())
     {
-        // Setup http client if not specified
         $this->client = new Client(array_merge_recursive(array(
             'base_uri' => $server,
             'headers' => array(
                 'User-Agent' => 'Pagos360 PHP SDK v' . self::VERSION,
                 'Accept' => 'application/json',
-                'Authorization' => sprintf('Bearer %s', $apiKey)
+                'Authorization' => 'Bearer ' . $apiKey
             )
         ), $clientOptions));
     }
@@ -81,28 +80,6 @@ class ApiClient
     }
 
     /**
-     * Do a PUT call to the Pagos360 API server
-     *
-     * @param string $partialUrl The url template
-     * @param array $uriParams The url template parameters
-     * @param BaseModel $data The data to update
-     * @param array $query Query parameters
-     * @return array
-     *
-     * @throws Pagos360ApiException
-     */
-    public function doPut($partialUrl, array $uriParams, BaseModel $data, array $query)
-    {
-        return $this->doRequest('PUT', $partialUrl, $uriParams, array(
-            'query' => $query,
-            'body' => \GuzzleHttp\json_encode($data->getPropertiesForUpdate(), JSON_FORCE_OBJECT),
-            'headers' => array(
-                'Content-Type' => 'application/json'
-            )
-        ));
-    }
-
-    /**
      * Do a GET call to the Pagos360 API server
      *
      * @param string $partialUrl The url template
@@ -120,7 +97,7 @@ class ApiClient
     }
 
     /**
-     * Execute API call and map error messages
+     * Execute API call and map errors messages
      *
      * @param string $method The http method
      * @param string $url The url template
@@ -135,26 +112,27 @@ class ApiClient
     {
         try {
             $uri = new UriTemplate();
-            $response = $this->client->request($method, $uri->expand($url, $urlParams), $options);
-            if ($response->getStatusCode() === 204) {
-                return array();
-            }
-            $body = \GuzzleHttp\json_decode($response->getBody(), true);
-            if (isset($body['links'])) {
-                unset($body['links']);
-            }
-            return $body;
+
+            $response = $this->client->request(
+                $method,
+                $uri->expand($url, $urlParams),
+                $options
+            );
+
+            return \GuzzleHttp\json_decode($response->getBody(), true);
         } catch (ConnectException $e) {
-            $errorResponse = new ErrorResponse(0, array('errors' => array(
+            $errorResponse = new ErrorResponse(0, array('error' => array(
                 array(
-                    'message' => 'Could not communicate with ' . $this->client->getConfig('base_uri'),
+                    'errorDescription' => 'Could not communicate with ' . $this->client->getConfig('base_uri'),
                     'code' => 'COMMUNICATION_ERROR'
                 )
             )));
+
             throw new Pagos360ApiException($errorResponse, $e);
         } catch (BadResponseException $e) {
             $body = \GuzzleHttp\json_decode($e->getResponse()->getBody(), true);
             $errorResponse = new ErrorResponse($e->getResponse()->getStatusCode(), $body);
+
             throw new Pagos360ApiException($errorResponse, $e);
         }
     }

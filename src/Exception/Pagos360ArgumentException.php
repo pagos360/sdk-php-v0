@@ -12,8 +12,8 @@ class Pagos360ArgumentException extends Pagos360Exception
     /**
      * Creates a instance of the Pagos360ArgumentException
      *
-     * @param string $message The error message
-     * @param int|null $code The error code
+     * @param string $message The errors errorDescription
+     * @param int|null $code The errors code
      * @param \Exception|null $previous The original exception
      */
     public function __construct(

@@ -12,7 +12,7 @@ use Pagos360\Response\ErrorResponse;
 class Pagos360ApiException extends Pagos360Exception
 {
     /**
-     * The error response
+     * The errors response
      *
      * @var ErrorResponse
      */
@@ -21,20 +21,20 @@ class Pagos360ApiException extends Pagos360Exception
     /**
      * Creates a instance of the Pagos360ArgumentException
      *
-     * @param ErrorResponse $errorResponse The error response
+     * @param ErrorResponse $errorResponse The errors response
      * @param \Exception|null $previous The original exception
      */
     public function __construct(
         ErrorResponse $errorResponse,
         \Exception $previous
     ) {
-        parent::__construct($errorResponse[0]->getMessage(), null, $previous);
+        parent::__construct($errorResponse->getStatusCode(), null, $previous);
 
         $this->errorResponse = $errorResponse;
     }
 
     /**
-     * The error response or null if not available
+     * The errors response or null if not available
      *
      * @return ErrorResponse
      */

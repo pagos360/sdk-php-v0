@@ -41,18 +41,18 @@ class Pagos360
     /**
      * Create a Payment Request
      *
-     * @param PaymentRequest $user The user data
+     * @param PaymentRequest $paymentRequest
      *
      * @return PaymentRequest
      *
      * @throws Pagos360ApiException
      */
-    public function createPaymentRequest(PaymentRequest $user)
+    public function createPaymentRequest(PaymentRequest $paymentRequest)
     {
         $body = $this->client->doPost(
-            '/api/paymet-request',
+            '/payment-request',
             array(),
-            $user,
+            $paymentRequest,
             array()
         );
 
