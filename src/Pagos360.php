@@ -7,6 +7,7 @@ use Pagos360\Util\ApiClient;
 use Pagos360\Model\PaymentRequest;
 use Pagos360\Exception\Pagos360BadRequestException;
 use Pagos360\Exception\Pagos360ArgumentException;
+use Pagos360\Exception\Pagos360NotFoundException;
 
 /**
  * The Pagos360 SDK Client
@@ -50,6 +51,7 @@ class Pagos360
      *
      * @throws Pagos360BadRequestException
      * @throws Pagos360UnauthorizedException
+     * @throws Pagos360NotFoundException
      */
     public function createPaymentRequest(PaymentRequest $paymentRequest)
     {
@@ -57,6 +59,28 @@ class Pagos360
             '/payment-request',
             array(),
             $paymentRequest,
+            array()
+        );
+
+        return new PaymentRequest($body);
+    }
+
+    /**
+     * Retrieve a Payment Request by id.
+     *
+     * @param int $id
+     *
+     * @return PaymentRequest
+     *
+     * @throws Pagos360BadRequestException
+     * @throws Pagos360UnauthorizedException
+     * @throws Pagos360NotFoundException
+     */
+    public function retrievePaymentRequest($id)
+    {
+        $body = $this->client->doGet(
+            '/payment-request/{id}',
+            array('id' => $id),
             array()
         );
 
