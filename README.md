@@ -2,7 +2,7 @@
 
 A PHP library to manage payments through the Pagos360.com API.
 
-You can sign up for a Stripe account at https://web.pagos360.com
+You can sign up for a Pagos360.com account at https://www.pagos360.com/solicitar-cuenta
 
 ## Requirements
 
