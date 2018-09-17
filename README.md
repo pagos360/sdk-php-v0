@@ -49,14 +49,14 @@ $pagos360 = new \Pagos360\Pagos360(
 ```php
 $paymentRequest = new \Pagos360\Model\PaymentRequest();
 $paymentRequest
-    ->setDescription('Descripción')
+    ->setDescription('Bill nº 3345')
     ->setExternalReference('REF123')
     ->setFirstDueDate('01-12-2018')
     ->setFirstTotal(345.34)
     ->setSecondDueDate('12-12-2018')
     ->setSecondTotal(1992.22)
-    ->setPayerName('Jorge Armani')
-    ->setPayerEmail('jorge.armani@gmail.com')
+    ->setPayerName('John Doe')
+    ->setPayerEmail('john.doe@pagos360.com')
     ->setBackUrlSucess('https://example.com/payment/success')
     ->setBackUrlPending('https://example.com/payment/pending')
 ;
