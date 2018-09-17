@@ -100,7 +100,7 @@ class BaseModel
     public function __get($key)
     {
         if ($this->__isset($key)) {
-            return $this->properties[$key];
+            return $this->properties[$this->camelToSnake($key)];
         }
         return null;
     }
@@ -134,7 +134,7 @@ class BaseModel
      */
     public function __isset($key)
     {
-        return isset($this->properties[$key]);
+        return isset($this->properties[$this->camelToSnake($key)]);
     }
 
     /**
@@ -147,7 +147,7 @@ class BaseModel
     public function __unset($key)
     {
         unset($this->updatedProperties[array_search($key, $this->updatedProperties)]);
-        unset($this->properties[$key]);
+        unset($this->properties[$this->camelToSnake($key)]);
     }
 
     /**
@@ -193,5 +193,4 @@ class BaseModel
             array_flip($this->updatedProperties)
         );
     }
-
 }
