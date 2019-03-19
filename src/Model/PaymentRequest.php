@@ -5,6 +5,17 @@ namespace Pagos360\Model;
 /**
  * Represents a PaymentRequest
  *
+ * @property string $checkoutUrl
+ * @property string $uuid
+ * @property string $barcodeUrl
+ * @property string $pdfUrl
+ * @property array $excludedChannelTypes
+ * @property PaymentRequestState $state
+ * @property array $metadata
+ * @property string $barcode
+ * @property string $backUrlSuccess
+ * @property string $backUrlPending
+ * @property string $backUrlRejected
  * @property string $description
  * @property string $externalReference
  * @property string $firstDueDate
@@ -13,8 +24,6 @@ namespace Pagos360\Model;
  * @property float $secondTotal
  * @property string $payerName
  * @property string $payerEmail
- * @property string $backUrlSuccess
- * @property string $backUrlPending
  *
  * @package Pagos360\Model
  */
@@ -281,5 +290,137 @@ class PaymentRequest extends BaseModel
         $this->backUrlPending = $backUrlPending;
 
         return $this;
+    }
+
+    /**
+     * Get the metadata
+     *
+     * @return array
+     */
+    public function getMetadata()
+    {
+        return $this->metadata;
+    }
+
+    /**
+     * Set metadata
+     *
+     * @param array $metadata
+     *
+     * @return PaymentRequest
+     */
+    public function setMetadata($metadata)
+    {
+        $this->metadata = $metadata;
+
+        return $this;
+    }
+
+    /**
+     * Get barcode.
+     *
+     * @return string
+     */
+    public function getBarcode()
+    {
+        return $this->barcode;
+    }
+
+    /**
+     * Get the backUrlSuccess
+     *
+     * @return string
+     */
+    public function getBackUrlSuccess()
+    {
+        return $this->backUrlSuccess;
+    }
+
+    /**
+     * Set backUrlSuccess
+     *
+     * @param string $backUrlSuccess
+     *
+     * @return PaymentRequest
+     */
+    public function setBackUrlSuccess($backUrlSuccess)
+    {
+        $this->backUrlSuccess = $backUrlSuccess;
+
+        return $this;
+    }
+
+    /**
+     * Get the backUrlRejected
+     *
+     * @return string
+     */
+    public function getBackUrlRejected()
+    {
+        return $this->backUrlRejected;
+    }
+
+    /**
+     * Set backUrlRejected
+     *
+     * @param string $backUrlRejected
+     *
+     * @return PaymentRequest
+     */
+    public function setBackUrlRejected($backUrlRejected)
+    {
+        $this->backUrlRejected = $backUrlRejected;
+
+        return $this;
+    }
+
+    /**
+     * Get state.
+     *
+     * @return PaymentRequestState
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Get checkoutUrl.
+     *
+     * @return string
+     */
+    public function getCheckoutUrl()
+    {
+        return $this->checkoutUrl;
+    }
+
+    /**
+     * Get uuid.
+     *
+     * @return string
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * Get barcodeUrl.
+     *
+     * @return string
+     */
+    public function getBarcodeUrl()
+    {
+        return $this->barcodeUrl;
+    }
+
+    /**
+     * Get pdfUrl.
+     *
+     * @return string
+     */
+    public function getPdfUrl()
+    {
+        return $this->pdfUrl;
     }
 }
