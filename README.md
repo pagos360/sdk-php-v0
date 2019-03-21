@@ -59,6 +59,8 @@ $paymentRequest
     ->setPayerEmail('john.doe@pagos360.com')
     ->setBackUrlSucess('https://example.com/payment/success')
     ->setBackUrlPending('https://example.com/payment/pending')
+    ->setBackUrlRejected('https://example.com/payment/rejected')
+    ->setMetadata(array('comentario': 'test'))
 ;
 
 try {

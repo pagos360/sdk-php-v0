@@ -9,7 +9,6 @@ namespace Pagos360\Model;
  * @property string $uuid
  * @property string $barcodeUrl
  * @property string $pdfUrl
- * @property array $excludedChannelTypes
  * @property PaymentRequestState $state
  * @property array $metadata
  * @property string $barcode
@@ -249,7 +248,7 @@ class PaymentRequest extends BaseModel
      *
      * @return string
      */
-    public function getBackUrlSucess()
+    public function getBackUrlSuccess()
     {
         return $this->backUrlSuccess;
     }
@@ -261,7 +260,7 @@ class PaymentRequest extends BaseModel
      *
      * @return PaymentRequest
      */
-    public function setBackUrlSucess($backUrlSuccess)
+    public function setBackUrlSuccess($backUrlSuccess)
     {
         $this->backUrlSuccess = $backUrlSuccess;
 
@@ -327,30 +326,6 @@ class PaymentRequest extends BaseModel
     }
 
     /**
-     * Get the backUrlSuccess
-     *
-     * @return string
-     */
-    public function getBackUrlSuccess()
-    {
-        return $this->backUrlSuccess;
-    }
-
-    /**
-     * Set backUrlSuccess
-     *
-     * @param string $backUrlSuccess
-     *
-     * @return PaymentRequest
-     */
-    public function setBackUrlSuccess($backUrlSuccess)
-    {
-        $this->backUrlSuccess = $backUrlSuccess;
-
-        return $this;
-    }
-
-    /**
      * Get the backUrlRejected
      *
      * @return string
@@ -377,11 +352,11 @@ class PaymentRequest extends BaseModel
     /**
      * Get state.
      *
-     * @return PaymentRequestState
+     * @return string
      */
     public function getState()
     {
-        return $this->state;
+        return $this->state->getName();
     }
 
     /**
