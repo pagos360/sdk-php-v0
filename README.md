@@ -57,10 +57,10 @@ $paymentRequest
     ->setSecondTotal(1992.22)
     ->setPayerName('John Doe')
     ->setPayerEmail('john.doe@pagos360.com')
-    ->setBackUrlSucess('https://example.com/payment/success')
+    ->setBackUrlSuccess('https://example.com/payment/success')
     ->setBackUrlPending('https://example.com/payment/pending')
     ->setBackUrlRejected('https://example.com/payment/rejected')
-    ->setMetadata(array('comentario': 'test'))
+    ->setMetadata(array('comentario' => 'test'))
 ;
 
 try {
