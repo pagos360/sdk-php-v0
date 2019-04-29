@@ -9,7 +9,7 @@ namespace Pagos360\Model;
  * @property string $uuid
  * @property string $barcodeUrl
  * @property string $pdfUrl
- * @property PaymentRequestState $state
+ * @property string $state
  * @property array $metadata
  * @property string $barcode
  * @property string $backUrlSuccess
@@ -35,7 +35,7 @@ class PaymentRequest extends BaseModel
      *
      * @var string[]
      */
-    private static $READ_ONLY_FIELDS = array('id');
+    private static $READ_ONLY_FIELDS = array('id', 'state');
 
     /**
      * Creates a instance of Payment
@@ -356,7 +356,7 @@ class PaymentRequest extends BaseModel
      */
     public function getState()
     {
-        return $this->state->getName();
+        return $this->state;
     }
 
     /**
